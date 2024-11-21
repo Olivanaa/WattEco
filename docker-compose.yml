@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+
+
+  oracle-db:
+    image: gvenzl/oracle-xe:latest
+    container_name: oracle-db
+    environment:
+      - ORACLE_RANDOM_PASSWORD=yes
+      - ORACLE_ALLOW_REMOTE=true
+    ports:
+      - "1521:1521"
+      - "8080:8080"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: watteco
+      RABBITMQ_DEFAULT_PASS: watteco
+
+volumes:
+  oracle_data:
