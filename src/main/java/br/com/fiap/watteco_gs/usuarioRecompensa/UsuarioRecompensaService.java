@@ -3,6 +3,7 @@ package br.com.fiap.watteco_gs.usuarioRecompensa;
 import br.com.fiap.watteco_gs.enums.StatusRecompensaEnum;
 import br.com.fiap.watteco_gs.recompensa.Recompensa;
 import br.com.fiap.watteco_gs.usuario.Usuario;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,7 @@ public class UsuarioRecompensaService {
         return usuarioRecompensaRepository.findByUsuarioIdAndStatus(usuarioId, status);
     }
 
+    @Transactional
     public void atualizarStatusRecompensa(Long usuarioId, Long recompensaId, StatusRecompensaEnum status) {
         Optional<UsuarioRecompensa> usuarioRecompensaOpt = usuarioRecompensaRepository.findByUsuarioIdAndRecompensaId(usuarioId, recompensaId);
         if (usuarioRecompensaOpt.isPresent()) {
@@ -48,13 +50,11 @@ public class UsuarioRecompensaService {
             if(usuario != null){
                 int pontosRecompensa = usuarioRecompensa.getRecompensa().getPontosNecessarios();
                 int pontosUsuario = usuarioRecompensa.getUsuario().getPontosAcumulados();
-                if(status.equals(StatusRecompensaEnum.NAO_RESGATADA)){
-                    if(pontosUsuario >= pontosRecompensa){
+                if (usuarioRecompensa.getStatus().equals(StatusRecompensaEnum.NAO_RESGATADA)) {
+                    if (pontosUsuario >= pontosRecompensa) {
                         usuarioRecompensa.setStatus(StatusRecompensaEnum.RESGATADA);
                         usuarioRecompensaRepository.save(usuarioRecompensa);
-                    }else{
-                        usuarioRecompensa.setStatus(StatusRecompensaEnum.NAO_RESGATADA);
-                        usuarioRecompensaRepository.save(usuarioRecompensa);
+                    } else {
                         throw new RuntimeException("Pontos insuficientes para resgatar esta recompensa.");
                     }
                 }

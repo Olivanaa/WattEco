@@ -1,10 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumos - WattEco</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css">
 </head>
-<body>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+<header class="bg-gray-900 shadow w-full max-w-full">
+    <div class="container mx-auto px-6 py-4 flex items-center justify-between w-full max-w-full">
+        <a href="/" class="text-2xl font-bold text-yellow-600 mr-6">WattEco</a>
+        <nav class="flex-1 flex justify-center space-x-6">
+            <a href="/dashboard" class="text-gray-50 hover:text-blue-600">Dashboard</a>
+            <a href="/missoes" class="text-gray-50 hover:text-blue-600">Missões</a>
+            <a href="/recompensas" class="text-gray-50 hover:text-blue-600">Recompensas</a>
+            <a href="/chat" class="text-gray-50 hover:text-blue-600">Dicas</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <figure>
+                <a href="/user/profile">
+                    <img class="rounded-full w-12 h-12" th:src="${usuario.avatar}" alt="avatar do usuário" />
+                </a>
+            </figure>
+            <a href="/logout" class="bg-yellow-500 text-white py-2 px-6 rounded-full hover:bg-yellow-600 transition duration-300">Logout</a>
+        </div>
+    </div>
+</header>
+
+<main class="container px-6 py-8 mb-8 flex-1 w-full max-w-full">
+    <div class="flex justify-between mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Registros de Consumo</h1>
+        <a href="/consumo/adicionar" class="bg-blue-500 text-white py-2 px-6 rounded-full hover:bg-blue-600 transition duration-300">
+            Adicionar Novo Registro
+        </a>
+    </div>
+
+    <section>
+        <h2 class="text-2xl font-semibold text-gray-700 mb-4">Meus Registros de Consumo</h2>
+
+        <!-- Se não houver registros de consumo, exibe a mensagem -->
+        <div th:if="${#lists.isEmpty(consumos)}" class="bg-white p-4 rounded-lg shadow-lg">
+            <p class="text-gray-600 text-lg font-semibold">Você ainda não possui registros de consumo.</p>
+        </div>
+
+        <!-- Exibe os registros de consumo se existirem -->
+        <div th:if="${!#lists.isEmpty(consumos)}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:each="registro : ${consumos}" class="bg-white p-4 rounded-lg shadow-lg">
+                <p class="text-gray-600 mt-2" th:text=" 'Data: ' + ${#temporals.format(registro.dataRegistro, 'dd/MM/yyyy')}"></p>
+                <p class="text-gray-600 mt-2" th:text="'Consumo: ' + ${registro.consumo} + ' kWh'"></p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-gray-900 text-gray-400 py-6 shadow mt-0 bottom-0 w-full">
+    <div class="container mx-auto text-center">
+        <p>&copy; 2024 WattEco. Todos os direitos reservados.</p>
+        <p>Feito com <span class="text-red-500">❤</span> para um futuro sustentável.</p>
+    </div>
+</footer>
 
 </body>
 </html>

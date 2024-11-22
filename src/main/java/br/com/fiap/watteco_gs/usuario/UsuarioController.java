@@ -77,6 +77,8 @@ public class UsuarioController {
         try {
             UsuarioUpdateFormRequest usuarioFormRequest = new UsuarioUpdateFormRequest(usuario.getNome(), usuario.getTelefone());
             model.addAttribute("usuarioForm", usuarioFormRequest);
+            model.addAttribute("usuario", usuario);
+            model.addAttribute("avatar", usuario.getAvatar());
             return "user/update";
         } catch (ResponseStatusException e) {
             log.error("Erro: {}", e.getMessage());

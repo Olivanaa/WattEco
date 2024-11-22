@@ -51,25 +51,17 @@ public class UsuarioRecompensaController {
         String username = authentication.getName();
         Usuario usuario = usuarioService.buscarPorEmail(username);
         Long recompensaIdLong = Long.parseLong(recompensaId);
-        if(usuario == null) {
-            model.addAttribute("error", "Usuário não encontrado");
-            return "erro";
 
-        }
         try{
             usuarioRecompensaService.atualizarStatusRecompensa(usuario.getId(), recompensaIdLong, StatusRecompensaEnum.RESGATADA);
+            log.info("ID da recompensa enviado no formulário: {}", recompensaId);
+            log.info("Status da recompensa atualizado com sucesso para o usuário {}", usuario.getEmail());
 
         } catch (RuntimeException e) {
             log.error("Erro ao atualizar o status: {}", e.getMessage(), e);
             if ("Pontos insuficientes para resgatar esta recompensa.".equals(e.getMessage())) {
                 model.addAttribute("error", e.getMessage());
                 return "recompensas";
-            } else if ("Recompensa já resgatada".equals(e.getMessage())) {
-                model.addAttribute("error", e.getMessage());
-                return "recompensas";
-            } else {
-                model.addAttribute("error", "Erro desconhecido ao atualizar o status.");
-                return "erro";
             }
         }
         return "redirect:/recompensas";

@@ -27,10 +27,11 @@ public class SecurityConfig {
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/")
+                        .clearAuthentication(true)
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID"));
-//                .csrf().disable(); // Desativa CSRF se não for necessário
+//                .csrf().disable();
 
         return http.build();
     }

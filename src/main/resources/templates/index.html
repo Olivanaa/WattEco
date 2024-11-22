@@ -1,10 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WattEco</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 min-h-screen h-screen flex flex-col">
+
+<header class="bg-gray-900 shadow">
+    <div class="container px-6 py-4 flex justify-between items-center w-full max-w-full ">
+        <a href="/" class="text-2xl font-bold text-yellow-600">WattEco</a>
+
+        <a href="/login" class="bg-yellow-500 text-white py-2 px-6 rounded-full hover:bg-yellow-600 transition duration-300">Comece Agora</a>
+    </div>
+</header>
+
+
+<section class="bg-gray-100">
+    <div class="relative">
+        <img th:src="@{images/watteco4.jpg}"
+             alt="Imagem ilustrativa de energia sustentável"
+             class="w-full h-full object-cover mx-auto shadow-lg">
+    </div>
+</section>
+
+
+<section class="bg-gray-100 py-10">
+    <div class="container mx-auto px-6 mt-8 text-center">
+        <h1 class="text-5xl font-bold text-gray-800">Transforme a Gestão do Seu Consumo de Energia</h1>
+        <p class="mt-6 text-lg text-gray-600">Controle, economize e faça a diferença no seu consumo de energia com nossa plataforma poderosa e fácil de usar.</p>
+        <a href="/user/create" class="mt-8 inline-block bg-yellow-500 text-white py-4 px-8 rounded-full hover:bg-yellow-600 transition duration-300">Cadastre-se</a>
+        <a href="/login" class="mt-8 inline-block bg-yellow-500 text-white py-4 px-8 rounded-full hover:bg-yellow-600 transition duration-300">Login</a>
+    </div>
+</section>
+
+<section class="py-10">
+    <div class="container mx-auto px-6 mt-8 text-center">
+        <h2 class="text-4xl font-bold text-gray-800 mb-10">Funcionalidades Poderosas</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-gray-800">Monitoramento em Tempo Real</h3>
+                <p class="mt-4 text-gray-600">Acompanhe o consumo de energia da sua residência ou empresa de forma precisa e atualizada.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-gray-800">Economia Inteligente</h3>
+                <p class="mt-4 text-gray-600">Nosso sistema oferece sugestões de otimização para reduzir sua conta de energia de maneira eficiente.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-gray-800">Sustentabilidade</h3>
+                <p class="mt-4 text-gray-600">Ajude o planeta ao diminuir sua pegada de carbono, utilizando energia de maneira mais consciente.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-20 bg-gray-800 text-white">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl font-bold mb-8">Comece Agora a Reduzir seu Consumo de Energia</h2>
+        <a href="/user/create" class="inline-block bg-yellow-500 py-3 px-6 rounded-full hover:bg-yellow-600 transition duration-300">Crie Sua Conta</a>
+        <a href="/login" class="inline-block bg-yellow-500 py-3 px-6 rounded-full hover:bg-yellow-600 transition duration-300">Faça seu login</a>
+    </div>
+</section>
+
+<footer class="bg-gray-900 text-gray-400 py-8 shadow mt-0 bottom-0 w-full">
+    <div class="container mx-auto px-6 text-center">
+        <p>&copy; 2024 WattEco. Todos os direitos reservados.</p>
+        <nav class="mt-4">
+            <a href="#" class="text-gray-400 hover:text-white mx-4">Termos de Uso</a>
+            <a href="#" class="text-gray-400 hover:text-white mx-4">Política de Privacidade</a>
+        </nav>
+    </div>
+</footer>
 
 </body>
 </html>

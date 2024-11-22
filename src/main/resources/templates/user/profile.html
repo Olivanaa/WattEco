@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WattEco - Perfil</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+<header class="bg-gray-900 shadow w-full max-w-full">
+    <div class="container mx-auto px-6 py-4 flex items-center justify-between w-full max-w-full">
+        <a href="/" class="text-2xl font-bold text-yellow-600 mr-6">WattEco</a>
+        <nav class="flex-1 flex justify-center space-x-6">
+            <a href="/missoes" class="text-gray-50 hover:text-blue-600">Missões</a>
+            <a href="/recompensas" class="text-gray-50 hover:text-blue-600">Recompensas</a>
+            <a href="/consumo/todos" class="text-gray-50 hover:text-blue-600">Registro de Consumo</a>
+            <a href="/chat" class="text-gray-50 hover:text-blue-600">Dicas</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <figure>
+                <a href="/user/profile">
+                    <img class="rounded-full w-12 h-12" th:src="${usuario.avatar}" alt="avatar do usuário" />
+                </a>
+            </figure>
+            <a href="/logout" class="bg-yellow-500 text-white py-2 px-6 rounded-full hover:bg-yellow-600 transition duration-300">Logout</a>
+        </div>
+    </div>
+</header>
+
+<main class="container px-6 py-8 mt-16 flex-1 w-full max-w-full">
+    <div class="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto space-y-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-4">
+                <img class="rounded-full w-24 h-24" th:src="${usuario.avatar}" alt="avatar do usuário" />
+                <div>
+                    <h2 class="text-xl font-bold text-gray-700" th:text="${usuario.nome}">Nome do Usuário</h2>
+                    <p class="text-sm text-gray-500" th:text="${usuario.email}">email@exemplo.com</p>
+                </div>
+            </div>
+            <a href="/user/update" class="bg-blue-500 text-white py-2 px-6 rounded-full hover:bg-blue-600 transition duration-300">
+                Atualizar Perfil
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-700">Telefone:</h3>
+                <p class="text-gray-600" th:text="'(' + ${usuario.telefone.substring(0, 2)} + ') ' + ${usuario.telefone.substring(2, 7)} + '-' + ${usuario.telefone.substring(7)}">(00) 00000-0000</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-gray-700">Data de Nascimento:</h3>
+                <p class="text-gray-600" th:text="${#temporals.format(usuario.dtaNascimento, 'dd/MM/yyyy')}">01/01/2000</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-gray-700">Data de Cadastro:</h3>
+                <p class="text-gray-600" th:text="${#temporals.format(usuario.dtaCadastro, 'dd/MM/yyyy')}">01/01/2021</p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-gray-700">Pontos Acumulados:</h3>
+                <p class="text-gray-600" th:text="${usuario.pontosAcumulados}">0</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-gray-900 text-gray-400 py-6 shadow mt-0 bottom-0 w-full">
+    <div class="container mx-auto text-center">
+        <p>&copy; 2024 WattEco. Todos os direitos reservados.</p>
+        <p>Feito com <span class="text-red-500">❤</span> para um futuro sustentável.</p>
+    </div>
+</footer>
 
 </body>
 </html>

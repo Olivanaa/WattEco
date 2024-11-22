@@ -1,6 +1,10 @@
 package br.com.fiap.watteco_gs.consumo;
 
+import br.com.fiap.watteco_gs.usuario.Usuario;
+import br.com.fiap.watteco_gs.usuario.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,29 +20,44 @@ import java.util.List;
 public class ConsumoController {
 
     private final ConsumoService consumoService;
+    private final UsuarioService usuarioService;
 
-    public ConsumoController(ConsumoService consumoService) {
+    public ConsumoController(ConsumoService consumoService, UsuarioService usuarioService) {
         this.consumoService = consumoService;
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping("/todos")
     public String mostrarConsumo(Model model) {
-        List<Consumo> consumos = consumoService.buscarTodos();
-        model.addAttribute("consumos", consumos);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Usuario usuario = usuarioService.buscarPorEmail(username);
+        List<Consumo> registros = consumoService.buscarTodos();
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("consumos", registros);
         return "consumo/index";
     }
 
     @GetMapping("/adicionar")
     public String mostrarFormulario(Model model, Consumo consumo) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Usuario usuario = usuarioService.buscarPorEmail(username);
+        model.addAttribute("usuario", usuario);
         model.addAttribute("consumos", consumo);
-        return "registro/create";
+        return "consumo/create";
     }
 
     @PostMapping("/adicionar")
     public String adicionarConsumo(Model model, Consumo consumo, BindingResult result) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        Usuario usuario = usuarioService.buscarPorEmail(username);
 
         if (result.hasErrors()) {
             model.addAttribute("consumo", consumo);
+            model.addAttribute("usuario", usuario);
             log.error(result.getAllErrors().toString());
             return "consumo/create";
         }
