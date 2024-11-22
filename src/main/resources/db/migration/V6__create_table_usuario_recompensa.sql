@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS usuario_recompensa (
+CREATE TABLE usuario_recompensa (
     usuario_id NUMBER,
     recompensa_id NUMBER,
     status VARCHAR2(50) NOT NULL,

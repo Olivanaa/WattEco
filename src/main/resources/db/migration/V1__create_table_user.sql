@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS watteco_usuario (
+CREATE TABLE watteco_usuario (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR2(200) NOT NULL,
     email VARCHAR2(255) NOT NULL,

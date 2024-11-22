@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS usuario_missao (
+CREATE TABLE usuario_missao (
     usuario_id NUMBER,
     missao_id NUMBER,
     status VARCHAR2(50) NOT NULL,
